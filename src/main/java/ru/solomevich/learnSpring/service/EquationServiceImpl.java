@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.solomevich.learnSpring.dao.EquationDao;
 import ru.solomevich.learnSpring.model.Equation;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -16,9 +17,17 @@ public class EquationServiceImpl implements EquationService {
     @Autowired
     EquationDao equationDao;
 
+    @Transactional
     public List<Equation> listEquation() {
         System.out.println("Сервис работает!!!!!!!!!!!!!!");
         return equationDao.listEq();
     }
+
+    @Transactional
+    public void addEquation(Equation equation)
+    {
+        equationDao.addEq(equation);
+    }
+
 }
 

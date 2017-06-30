@@ -9,4 +9,5 @@ import java.util.List;
  */
 public interface EquationService {
     public List<Equation> listEquation();
+    public void addEquation(Equation equation);
 }

@@ -5,7 +5,10 @@ package ru.solomevich.learnSpring.web;
  */
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import ru.solomevich.learnSpring.dao.EquationDaoImpl;
 import ru.solomevich.learnSpring.model.Equation;
 import ru.solomevich.learnSpring.service.EquationService;
@@ -18,21 +21,30 @@ public class ContactController {
     @Autowired
     EquationService equationService;
 
-    EquationDaoImpl equationDao = new EquationDaoImpl();
+//    EquationDaoImpl equationDao = new EquationDaoImpl();
+
         @RequestMapping(value = "/")
         public String home(Map<String, Object> map){
             System.out.println("Контроллер работает!!!!!!!!!!!!!!");
 
-            System.out.println("equationDao"+equationDao.listEq().get(0).getId());
+//            System.out.println("equationDao"+equationDao.listEq().get(0).getId());
             System.out.println("equationDao"+equationService.listEquation());
-            map.put("test", new Equation(1,"a+b"));
+//            map.put("test", new Equation(1,"a+b"));
             map.put("equationList", equationService.listEquation());
-            map.put("equation", equationDao.listEq());
+//            map.put("equation", equationDao.listEq());
 
             return "test";
         }
 
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public String addContact(@ModelAttribute("equation") Equation equation
+//            ,                             BindingResult result
+    ) {
 
+        equationService.addEquation(equation);
+
+        return "redirect:/";
+    }
 
 
     }
