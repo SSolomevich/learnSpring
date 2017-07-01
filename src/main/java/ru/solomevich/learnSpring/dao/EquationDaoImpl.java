@@ -1,11 +1,14 @@
 package ru.solomevich.learnSpring.dao;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
-import ru.solomevich.learnSpring.model.Equation;
 
-import java.util.Arrays;
+import ru.solomevich.learnSpring.model.Equation;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Repository;
+
+
 import java.util.List;
 
 /**
@@ -13,38 +16,49 @@ import java.util.List;
  */
 @Repository
 public class EquationDaoImpl implements EquationDao {
-
-//    public static List<Equation> list = Arrays.asList(
-//            new Equation(1, "x+y"),
-//            new Equation(2, "2x+y"),
-//            new Equation(3, "x+3y"),
-//            new Equation(4, "x+y+z"),
-//            new Equation(5, "x-18y"));
-
-
-
-//    public List<Equation> listEq()
-//    {
-//        System.out.println("Дао тоже работает!!!!!!!!!!!!!!");
-//        return list;
-//    }
 //
-//    public void addEq(Equation equation) {
-//        list.add(equation);
-//    }
+//    public static List<Equation> list = Arrays.asList(
+//            new Equation(),
+//            new Equation(),
+//            new Equation())
+////            new Equation(4, "x+y+z"),
+////            new Equation(5, "x-18y"))
+//            ;
 
-    @Autowired
+
+
+
+
+
     private SessionFactory sessionFactory;
 
+
+    public void setSessionFactory(SessionFactory sessionFactory) {
+        this.sessionFactory = sessionFactory;
+    }
+
+    @Override
     public void addEq (Equation equation) {
-    sessionFactory.getCurrentSession().save(equation);
+        Session session = this.sessionFactory.getCurrentSession();
+        session.persist(equation);
+//    sessionFactory.getCurrentSession().save(equation);
         }
 
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<Equation> listEq() {
 
-        return sessionFactory.getCurrentSession().createQuery("from equation")
-                .list();
+
+//        return sessionFactory.getCurrentSession().createQuery("From Equation")
+//                .list();
+
+
+        Session session = this.sessionFactory.getCurrentSession();
+        List<Equation> listUser = session.createQuery("from Equation").list();
+
+
+        return listUser;
     }
 
 

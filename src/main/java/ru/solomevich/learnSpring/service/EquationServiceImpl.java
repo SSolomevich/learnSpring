@@ -14,19 +14,28 @@ import java.util.List;
 @Service
 public class EquationServiceImpl implements EquationService {
 
-    @Autowired
+
+
+
     EquationDao equationDao;
 
+    public void setEquationDao(EquationDao equationDao) {
+        this.equationDao = equationDao;
+    }
+
+
+    @Override
     @Transactional
     public List<Equation> listEquation() {
         System.out.println("Сервис работает!!!!!!!!!!!!!!");
-        return equationDao.listEq();
+        return this.equationDao.listEq();
     }
-
+    @Override
     @Transactional
     public void addEquation(Equation equation)
     {
-        equationDao.addEq(equation);
+        this.equationDao.addEq(equation);
+
     }
 
 }

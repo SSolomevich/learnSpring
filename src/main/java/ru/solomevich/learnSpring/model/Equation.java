@@ -4,20 +4,24 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.*;
+
+import java.sql.Date;
 /**
  * Created by 15 on 24.06.2017.
  */
 
 @Entity
 @Table(name = "equation")
+
 public class Equation {
 
     @Id
-    @Column(name = "id")
-    @GeneratedValue
+    @Column(name = "ID")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(name = "equation")
+    @Column(name = "EQUATION")
     private String equation;
 
 

@@ -4,6 +4,7 @@ package ru.solomevich.learnSpring.web;
  * Created by 15 on 14.06.2017.
  */
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,14 +13,51 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import ru.solomevich.learnSpring.dao.EquationDaoImpl;
 import ru.solomevich.learnSpring.model.Equation;
 import ru.solomevich.learnSpring.service.EquationService;
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.support.PagedListHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import javax.annotation.Resource;
 import java.util.Map;
 
 @Controller
 public class ContactController {
 
-    @Autowired
-    EquationService equationService;
+      private EquationService equationService;
+
+    @Autowired(required = true)
+    @Qualifier(value = "equationService")
+    public void setEquationService(EquationService equationService) {
+        this.equationService = equationService;
+    }
+
+
+//    @RequestMapping(value="/test", method = RequestMethod.GET)
+//    public ModelAndView listOfEquation(@RequestParam(required = false) Integer page) {
+//        ModelAndView modelAndView = new ModelAndView("test");
+//
+//        modelAndView.addObject("equation", new Equation());
+//        List<User> users = userService.listUsers();
+//        PagedListHolder<User> pagedListHolder = new PagedListHolder<User>(users);
+//        pagedListHolder.setPageSize(10);
+//        modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
+//
+//        if(page==null || page < 1 || page > pagedListHolder.getPageCount())page=1;
+//
+//        modelAndView.addObject("page", page);
+//        if(page == null || page < 1 || page > pagedListHolder.getPageCount()){
+//            pagedListHolder.setPage(0);
+//            modelAndView.addObject("users", pagedListHolder.getPageList());
+//        }
+//        else if(page <= pagedListHolder.getPageCount()) {
+//            pagedListHolder.setPage(page-1);
+//            modelAndView.addObject("users", pagedListHolder.getPageList());
+//        }
+//        return modelAndView;
+//    }
 
 //    EquationDaoImpl equationDao = new EquationDaoImpl();
 
