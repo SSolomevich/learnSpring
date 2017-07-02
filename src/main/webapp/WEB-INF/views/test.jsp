@@ -54,52 +54,42 @@
 <table cellspacing="0px" cellpadding="2px" border="0px">
 
 
-    <c:forEach items="${equation}" var="c">
-        <tr>
-            <td>${c.id}</td>
-            <td>${c.equation}</td>
-        </tr>
-    </c:forEach>
+    <%--<c:forEach items="${equation}" var="c">--%>
+        <%--<tr>--%>
+            <%--<td>${c.id}</td>--%>
+            <%--<td>${c.equation}</td>--%>
+        <%--</tr>--%>
+    <%--</c:forEach>--%>
 
-    <c:forEach items="${equationList}" var="contact">
+    <c:forEach items="${equationList}" var="equation">
         <tr>
-            <td class="td" align="center">${contact.id}</td>
-            <td class="td" align="center"> ${contact.equation}</td>
+            <td class="td" align="center">${equation.id}</td>
+            <td class="td" align="center"> ${equation.equation}</td>
         </tr>
     </c:forEach>
 
 </table>
 
-</div>
-
-<tr style="background-color: #F0F0F0">
-    <td class="td" > Введите уравнение реакции без коэффициентов</td>
-    <td class="i" > <input type="text" name="Equation" maxlength="50"  size="14"  class="i2"/></td>
-</tr>
-<tr>
-    <td class="td"> </td>
-    <td class="td2"> <input type="submit" name="success" value="Ок" class="input"> </td>
-</tr>
 
 
-<form:form method="post" action="add" commandName="equation">
 
-    <table>
-        <tr>
-            <%--<td><form:label path="id">ID</form:label></td>--%>
-            <%--<td><form:input path="id" /></td>--%>
-        </tr>
-        <tr>
-            <%--<td><form:label path="equation">Eq</form:label></td>--%>
-            <%--<td><form:input path="equation" /></td>--%>
-        </tr>
+<form:form  action="add"  method="post">
 
-            <tr>
-            <td colspan="2"><input type="submit"
-                   value="sub" /></td>
-        </tr>
-    </table>
+    <tr style="background-color: #F0F0F0">
+        <td class="td" > Введите уравнение реакции без коэффициентов</td>
+        <td class="i" > <input type="text" name="equation" maxlength="50"  size="14"  class="i2"/></td>
+    </tr>
+    <tr>
+        <td class="td"> </td>
+        <td class="td2"> <input type="submit" name="success" value="Ок" class="input"> </td>
+    </tr>
 </form:form>
+
+
+
+
+
+
 
 
 </body>

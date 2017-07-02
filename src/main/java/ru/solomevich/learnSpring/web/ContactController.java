@@ -35,33 +35,7 @@ public class ContactController {
     }
 
 
-//    @RequestMapping(value="/test", method = RequestMethod.GET)
-//    public ModelAndView listOfEquation(@RequestParam(required = false) Integer page) {
-//        ModelAndView modelAndView = new ModelAndView("test");
-//
-//        modelAndView.addObject("equation", new Equation());
-//        List<User> users = userService.listUsers();
-//        PagedListHolder<User> pagedListHolder = new PagedListHolder<User>(users);
-//        pagedListHolder.setPageSize(10);
-//        modelAndView.addObject("maxPages", pagedListHolder.getPageCount());
-//
-//        if(page==null || page < 1 || page > pagedListHolder.getPageCount())page=1;
-//
-//        modelAndView.addObject("page", page);
-//        if(page == null || page < 1 || page > pagedListHolder.getPageCount()){
-//            pagedListHolder.setPage(0);
-//            modelAndView.addObject("users", pagedListHolder.getPageList());
-//        }
-//        else if(page <= pagedListHolder.getPageCount()) {
-//            pagedListHolder.setPage(page-1);
-//            modelAndView.addObject("users", pagedListHolder.getPageList());
-//        }
-//        return modelAndView;
-//    }
-
-//    EquationDaoImpl equationDao = new EquationDaoImpl();
-
-        @RequestMapping(value = "/")
+        @RequestMapping(value = "/",  method = RequestMethod.GET)
         public String home(Map<String, Object> map){
             System.out.println("Контроллер работает!!!!!!!!!!!!!!");
 
@@ -75,11 +49,9 @@ public class ContactController {
         }
 
     @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addContact(@ModelAttribute("equation") Equation equation
-//            ,                             BindingResult result
-    ) {
+    public String addContact(@ModelAttribute("equation") Equation equation) {
 
-        equationService.addEquation(equation);
+       equationService.addEquation(equation);
 
         return "redirect:/";
     }
