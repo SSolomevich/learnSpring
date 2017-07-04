@@ -73,8 +73,8 @@
 
 
 
-<form:form  action="add"  method="post">
-
+<%--<form:form  action="add"  method="post">--%>
+    <form:form  action="add" >
     <tr style="background-color: #F0F0F0">
         <td class="td" > Введите уравнение реакции без коэффициентов</td>
         <td class="i" > <input type="text" name="equation" maxlength="50"  size="14"  class="i2"/></td>
@@ -85,9 +85,23 @@
     </tr>
 </form:form>
 
+    <form:form  action="equalize" >
+    <tr style="background-color: #F0F0F0">
+        <td class="td" > Введите уравнение реакции без коэффициентов</td>
+        <td class="i" > <input type="text" name="equalize" maxlength="50"  size="14"  class="i2"/></td>
+    </tr>
+    <tr>
+        <td class="td"> </td>
+        <td class="td2"> <input type="submit" name="success" value="Ок" class="input"> </td>
+    </tr>
+    </form:form>
 
+    <c:forEach items="${equalize}" var="equation">
+    <tr>
+        <td class="td" align="center">${equation}</td>
 
-
+    </tr>
+    </c:forEach>
 
 
 

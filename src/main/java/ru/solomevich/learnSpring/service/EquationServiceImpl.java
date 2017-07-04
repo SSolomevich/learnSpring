@@ -35,7 +35,13 @@ public class EquationServiceImpl implements EquationService {
     public void addEquation(Equation equation)
     {
         this.equationDao.addEq(equation);
+    }
 
+    @Override
+    public String equalizeEquation (String str)
+    {
+        String[] world = str.split("=");
+        return world[0];
     }
 
 }

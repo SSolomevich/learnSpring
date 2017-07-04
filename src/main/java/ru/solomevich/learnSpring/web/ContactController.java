@@ -37,10 +37,10 @@ public class ContactController {
 
         @RequestMapping(value = "/",  method = RequestMethod.GET)
         public String home(Map<String, Object> map){
-            System.out.println("Контроллер работает!!!!!!!!!!!!!!");
+//            System.out.println("Контроллер работает!!!!!!!!!!!!!!");
 
 //            System.out.println("equationDao"+equationDao.listEq().get(0).getId());
-            System.out.println("equationDao"+equationService.listEquation());
+//            System.out.println("equationDao"+equationService.listEquation());
 //            map.put("test", new Equation(1,"a+b"));
             map.put("equationList", equationService.listEquation());
 //            map.put("equation", equationDao.listEq());
@@ -48,13 +48,22 @@ public class ContactController {
             return "test";
         }
 
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public String addContact(@ModelAttribute("equation") Equation equation) {
+//    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    @RequestMapping(value = "/add")
+    public String addEquation(@ModelAttribute("equation") Equation equation) {
 
        equationService.addEquation(equation);
 
         return "redirect:/";
     }
 
+
+    @RequestMapping(value = "/equalize")
+    public String equalize(@ModelAttribute("equalize") String str, Map<String, String> map) {
+
+//        equationService.equalizeEquation(equation);
+        map.put("equalize", equationService.equalizeEquation(str));
+        return "redirect:/";
+    }
 
     }
