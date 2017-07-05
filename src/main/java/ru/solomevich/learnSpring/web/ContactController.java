@@ -57,12 +57,19 @@ public class ContactController {
         return "redirect:/";
     }
 
+    @RequestMapping("/remove/{id}")
+    public String deleteUser(@PathVariable("id") int id)
+    {
+        this.equationService.deleteEquation(id);
+        return "redirect:/";
+    }
 
     @RequestMapping(value = "/equalize")
-    public String equalize(@ModelAttribute("equalize") String str, Map<String, String> map) {
+    public String equalize(@ModelAttribute("equation") Equation equation) {
 
-//        equationService.equalizeEquation(equation);
-        map.put("equalize", equationService.equalizeEquation(str));
+        equationService.addEquation(equationService.equalizeEquation(equation));
+//        equationService.addEquation(new Equation(1, equationService.equalizeEquation(str)));
+//        map.put("equalize", );
         return "redirect:/";
     }
 

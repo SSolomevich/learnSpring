@@ -25,10 +25,6 @@ public class Equation {
     private String equation;
 
 
-//    public Equation(Integer id, String equation) {
-//        this.id = id;
-//        this.equation = equation;
-//    }
 
     public Integer getId() {
         return id;

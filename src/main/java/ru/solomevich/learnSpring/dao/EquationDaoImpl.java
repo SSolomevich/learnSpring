@@ -61,8 +61,14 @@ public class EquationDaoImpl implements EquationDao {
         return listUser;
     }
 
-
-
+    @Override
+    public void deleteEq(int id)
+    {
+        Session session = this.sessionFactory.getCurrentSession();
+        Equation equation = (Equation) session.load(Equation.class, new Integer(id));
+        if (equation!=null)
+            session.delete(equation);
+    }
 }
 
 

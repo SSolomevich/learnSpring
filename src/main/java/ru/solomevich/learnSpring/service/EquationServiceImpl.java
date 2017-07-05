@@ -38,10 +38,19 @@ public class EquationServiceImpl implements EquationService {
     }
 
     @Override
-    public String equalizeEquation (String str)
+    @Transactional
+    public void deleteEquation(int id)
     {
-        String[] world = str.split("=");
-        return world[0];
+        this.equationDao.deleteEq(id);
+    }
+
+    @Override
+    public Equation equalizeEquation (Equation equation)
+    {
+
+        String[] world = equation.getEquation().split("=");
+        equation.setEquation(world[0]);
+        return equation;
     }
 
 }

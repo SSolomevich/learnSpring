@@ -10,4 +10,5 @@ import java.util.List;
 public interface EquationDao {
     public List<Equation> listEq();
     public void addEq(Equation equation);
+    public void deleteEq(int id);
 }
