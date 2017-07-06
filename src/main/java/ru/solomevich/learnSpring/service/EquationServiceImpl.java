@@ -56,10 +56,16 @@ public class EquationServiceImpl implements EquationService {
         }
 
         String[] world1 = world[0].split("[+]");
-        char [] elementsCharArray = world1[0].toCharArray ();
-        Map<Character,Integer> elements = new HashMap<Character, Integer>();
-        elements.put(elementsCharArray[0],0);
-        Set<Map.Entry<Character, Integer>> set = elements.entrySet();
+        String s = "";
+        for (int i=0;i<world1.length;i++)
+        {
+            s = s+world1[i];
+        }
+//        char [] elementsCharArray = world1[0].toCharArray ();
+        char [] elementsCharArray = s.toCharArray ();
+        Map<String,Integer> elements = new HashMap<String, Integer>();
+        elements.put(String.valueOf(elementsCharArray[0]),0);
+        Set<Map.Entry<String, Integer>> set = elements.entrySet();
 
 
         int count = 0;
@@ -73,13 +79,19 @@ public class EquationServiceImpl implements EquationService {
                     count++;
                 }
             }
-            elements.put(elementsCharArray[j], count);
+            if (Character.isUpperCase(elementsCharArray[j])) {
+                elements.put(String.valueOf(elementsCharArray[j]), count);
+            }
+            else if (Character.isLowerCase(elementsCharArray[j])){
+                elements.remove(String.valueOf(elementsCharArray[j-1]));
+                elements.put(String.valueOf(elementsCharArray[j-1])+String.valueOf(elementsCharArray[j]),count);
+            }
             count =0;
         }
-        Set<Map.Entry<Character, Integer>> set2 = elements.entrySet();
-        System.out.println(world1[0]);
+        Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
+        System.out.println(s);
         System.out.println("МАП НИЖЕ!");
-        for (Map.Entry<Character, Integer> me : set2) {
+        for (Map.Entry<String, Integer> me : set2) {
             System.out.print(me.getKey() + ": ");
             System.out.println(me.getValue());
         }
