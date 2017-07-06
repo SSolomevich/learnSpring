@@ -6,7 +6,7 @@ import ru.solomevich.learnSpring.dao.EquationDao;
 import ru.solomevich.learnSpring.model.Equation;
 
 import javax.transaction.Transactional;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by 15 on 24.06.2017.
@@ -49,7 +49,48 @@ public class EquationServiceImpl implements EquationService {
     {
 
         String[] world = equation.getEquation().split("=");
-        equation.setEquation(world[0]);
+
+        if (world.length!=2||world[0].equals("")||world[1].equals("")) {
+            equation.setEquation("УРАВНЕНИЕ ВВЕДЕНО НЕВЕРНО!");
+            return equation;
+        }
+
+        String[] world1 = world[0].split("[+]");
+        char [] elementsCharArray = world1[0].toCharArray ();
+        Map<Character,Integer> elements = new HashMap<Character, Integer>();
+        elements.put(elementsCharArray[0],0);
+        Set<Map.Entry<Character, Integer>> set = elements.entrySet();
+
+
+        int count = 0;
+        for (int j = 0; j<elementsCharArray.length;j++)
+        {
+            for (int i = 0; i<elementsCharArray.length;i++)
+            {
+
+                if (elementsCharArray[j]==elementsCharArray[i])
+                {
+                    count++;
+                }
+            }
+            elements.put(elementsCharArray[j], count);
+            count =0;
+        }
+        Set<Map.Entry<Character, Integer>> set2 = elements.entrySet();
+        System.out.println(world1[0]);
+        System.out.println("МАП НИЖЕ!");
+        for (Map.Entry<Character, Integer> me : set2) {
+            System.out.print(me.getKey() + ": ");
+            System.out.println(me.getValue());
+        }
+        String endEquation = "";
+
+
+
+
+        equation.setEquation(endEquation);
+        System.out.println(endEquation);
+
         return equation;
     }
 
