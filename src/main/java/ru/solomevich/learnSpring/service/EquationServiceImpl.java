@@ -86,6 +86,11 @@ public class EquationServiceImpl implements EquationService {
                 elements.remove(String.valueOf(elementsCharArray[j-1]));
                 elements.put(String.valueOf(elementsCharArray[j-1])+String.valueOf(elementsCharArray[j]),count);
             }
+            else if (elementsCharArray[j]>='0' && elementsCharArray[j]<='9'){
+
+                elements.remove(String.valueOf(elementsCharArray[j-1]));
+                elements.put(String.valueOf(elementsCharArray[j-1]),count-1+Character.digit(elementsCharArray[j],10));
+            }
             count =0;
         }
         Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
