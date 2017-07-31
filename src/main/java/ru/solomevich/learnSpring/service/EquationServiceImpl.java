@@ -63,9 +63,11 @@ public class EquationServiceImpl implements EquationService {
         }
 //        char [] elementsCharArray = world1[0].toCharArray ();
         char [] elementsCharArray = s.toCharArray ();
+        // создаем map для хранения элементов и их количества
         Map<String,Integer> elements = new HashMap<String, Integer>();
+        // добавляем первый элемент в map
         elements.put(String.valueOf(elementsCharArray[0]),0);
-        Set<Map.Entry<String, Integer>> set = elements.entrySet();
+//        Set<Map.Entry<String, Integer>> set = elements.entrySet();
 
 
         int count = 0;
