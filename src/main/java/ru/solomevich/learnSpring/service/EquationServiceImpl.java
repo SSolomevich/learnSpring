@@ -64,7 +64,7 @@ public class EquationServiceImpl implements EquationService {
 //        char [] elementsCharArray = world1[0].toCharArray ();
         char [] elementsCharArray = s.toCharArray ();
         // создаем map для хранения элементов и их количества
-        Map<String,Integer> elements = new HashMap<String, Integer>();
+        Map<String,Integer> elements = new TreeMap<String, Integer>();
         // добавляем первый элемент в map
         elements.put(String.valueOf(elementsCharArray[0]),0);
 //        Set<Map.Entry<String, Integer>> set = elements.entrySet();
@@ -73,11 +73,8 @@ public class EquationServiceImpl implements EquationService {
         int count = 0;
         for (int j = 0; j<elementsCharArray.length;j++)
         {
-            for (int i = 0; i<elementsCharArray.length;i++)
-            {
-
-                if (elementsCharArray[j]==elementsCharArray[i])
-                {
+            for (int i = 0; i<elementsCharArray.length;i++){
+                if (elementsCharArray[j]==elementsCharArray[i]){
                     count++;
                 }
             }
@@ -88,10 +85,21 @@ public class EquationServiceImpl implements EquationService {
                 elements.remove(String.valueOf(elementsCharArray[j-1]));
                 elements.put(String.valueOf(elementsCharArray[j-1])+String.valueOf(elementsCharArray[j]),count);
             }
-            else if (elementsCharArray[j]>='0' && elementsCharArray[j]<='9'){
+            else if (elementsCharArray[j]>='0' && elementsCharArray[j]<='9') {
+                if (elementsCharArray[j - 1] != ')') {
+//                    elements.remove(String.valueOf(elementsCharArray[j - 1]));
+                    elements.put(String.valueOf(elementsCharArray[j - 1]), count  + Character.digit(elementsCharArray[j], 10));
+                }
+                else {
+//                    for (int i = j-2; i<)
+                    int counter = j - 2;
+                        while (elementsCharArray[counter] != '('){
+//                            elements.remove(String.valueOf(elementsCharArray[counter]));
+                            elements.put(String.valueOf(elementsCharArray[counter]), count  + Character.digit(elementsCharArray[j], 10));
+                            counter=counter-1;
+                        }
 
-                elements.remove(String.valueOf(elementsCharArray[j-1]));
-                elements.put(String.valueOf(elementsCharArray[j-1]),count-1+Character.digit(elementsCharArray[j],10));
+                }
             }
             count =0;
         }
