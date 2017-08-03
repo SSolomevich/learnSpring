@@ -74,33 +74,76 @@ public class EquationServiceImpl implements EquationService {
         for (int j = 0; j<elementsCharArray.length;j++)
         {
             for (int i = 0; i<elementsCharArray.length;i++){
-                if (elementsCharArray[j]==elementsCharArray[i]){
-                    count++;
-                }
-            }
-            if (Character.isUpperCase(elementsCharArray[j])) {
-                elements.put(String.valueOf(elementsCharArray[j]), count);
-            }
-            else if (Character.isLowerCase(elementsCharArray[j])){
-                elements.remove(String.valueOf(elementsCharArray[j-1]));
-                elements.put(String.valueOf(elementsCharArray[j-1])+String.valueOf(elementsCharArray[j]),count);
-            }
-            else if (elementsCharArray[j]>='0' && elementsCharArray[j]<='9') {
-                if (elementsCharArray[j - 1] != ')') {
-//                    elements.remove(String.valueOf(elementsCharArray[j - 1]));
-                    elements.put(String.valueOf(elementsCharArray[j - 1]), count  + Character.digit(elementsCharArray[j], 10));
-                }
-                else {
-//                    for (int i = j-2; i<)
-                    int counter = j - 2;
-                        while (elementsCharArray[counter] != '('){
-//                            elements.remove(String.valueOf(elementsCharArray[counter]));
-                            elements.put(String.valueOf(elementsCharArray[counter]), count  + Character.digit(elementsCharArray[j], 10));
-                            counter=counter-1;
+                if (elementsCharArray[j]==elementsCharArray[i]&&Character.isUpperCase(elementsCharArray[i])){
+
+                    if (i<elementsCharArray.length-1) {
+                        if (Character.isUpperCase(elementsCharArray[i + 1])) {
+                            count++;
                         }
+                        else if (elementsCharArray[i + 1] >= '0' && elementsCharArray[i + 1] <= '9') {
+                            count = count + Character.digit(elementsCharArray[i+1], 10);
+                        }
+                    }
+                        elements.put(String.valueOf(elementsCharArray[j]), count);
 
                 }
             }
+
+
+//            if (Character.isUpperCase(elementsCharArray[j])) {
+//                elements.put(String.valueOf(elementsCharArray[j]), count);
+//            }
+//
+//
+//            else
+//                if (Character.isLowerCase(elementsCharArray[j])){
+//                elements.remove(String.valueOf(elementsCharArray[j-1]));
+//                elements.put(String.valueOf(elementsCharArray[j-1])+String.valueOf(elementsCharArray[j]),count);
+//            }
+////
+////
+////
+//            else
+//                if (elementsCharArray[j]>='0' && elementsCharArray[j]<='9') {
+//                if (elementsCharArray[j - 1] != ')') {
+//
+//                    if (Character.isUpperCase(elementsCharArray[j-1])) {
+////                        count=count+Character.digit(elementsCharArray[j], 10);
+//
+//
+//                        Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
+//                        for (Map.Entry<String, Integer> m : set2) {
+//                           if (m.getKey().equalsIgnoreCase(String.valueOf(elementsCharArray[j-1]))) ;
+//                            elements.put(String.valueOf(elementsCharArray[j-1]), m.getValue()+Character.digit(elementsCharArray[j], 10));
+//                        }
+//
+//
+////                        elements.put(String.valueOf(elementsCharArray[j-1]), count);
+//
+//                    }
+//
+//                    else if (Character.isLowerCase(elementsCharArray[j-1])){
+//                        elements.remove(String.valueOf(elementsCharArray[j-2]));
+//                        count=count+Character.digit(elementsCharArray[j], 10);
+//                        elements.put(String.valueOf(elementsCharArray[j-2])+String.valueOf(elementsCharArray[j-1]),count);
+//                    }
+//
+//
+//
+////                    elements.remove(String.valueOf(elementsCharArray[j - 1]));
+////                    elements.put(String.valueOf(elementsCharArray[j - 1]), count  + Character.digit(elementsCharArray[j], 10));
+//                }
+//                else {
+////                    for (int i = j-2; i<)
+//                    int counter = j - 2;
+//                        while (elementsCharArray[counter] != '('){
+////                            elements.remove(String.valueOf(elementsCharArray[counter]));
+//                            elements.put(String.valueOf(elementsCharArray[counter]), count  + Character.digit(elementsCharArray[j], 10));
+//                            counter=counter-1;
+//                        }
+//
+//                }
+//            }
             count =0;
         }
         Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
