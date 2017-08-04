@@ -66,7 +66,7 @@ public class EquationServiceImpl implements EquationService {
         // создаем map для хранения элементов и их количества
         Map<String,Integer> elements = new TreeMap<String, Integer>();
         // добавляем первый элемент в map
-        elements.put(String.valueOf(elementsCharArray[0]),0);
+//        elements.put(String.valueOf(elementsCharArray[0]),0);
 //        Set<Map.Entry<String, Integer>> set = elements.entrySet();
 
 
@@ -79,16 +79,37 @@ public class EquationServiceImpl implements EquationService {
                     if (i<elementsCharArray.length-1) {
                         if (Character.isUpperCase(elementsCharArray[i + 1])) {
                             count++;
+                            elements.put(String.valueOf(elementsCharArray[j]), count);
                         }
                         else if (elementsCharArray[i + 1] >= '0' && elementsCharArray[i + 1] <= '9') {
                             count = count + Character.digit(elementsCharArray[i+1], 10);
+                            elements.put(String.valueOf(elementsCharArray[j]), count);
+                        }
+                        else if (Character.isLowerCase(elementsCharArray[i+1])){
+                            if (elementsCharArray[j+1]==elementsCharArray[i+1]&&i<elementsCharArray.length-2){
+                                if (Character.isUpperCase(elementsCharArray[i + 2])) {
+                                    count++;
+                                    elements.put(String.valueOf(elementsCharArray[j])+String.valueOf(elementsCharArray[j+1]), count);
+                                }
+                                else if (elementsCharArray[i + 2] >= '0' && elementsCharArray[i + 2] <= '9') {
+                                    count = count + Character.digit(elementsCharArray[i+2], 10);
+                                    elements.put(String.valueOf(elementsCharArray[j])+String.valueOf(elementsCharArray[j+1]), count);
+                                }
+                            }
+                            else {
+                                count++;
+                                elements.put(String.valueOf(elementsCharArray[j])+String.valueOf(elementsCharArray[j+1]), count);
+                            }
                         }
                     }
+                    else{
+                        count++;
                         elements.put(String.valueOf(elementsCharArray[j]), count);
-
+                    }
                 }
             }
-
+            count =0;
+        }
 
 //            if (Character.isUpperCase(elementsCharArray[j])) {
 //                elements.put(String.valueOf(elementsCharArray[j]), count);
@@ -144,8 +165,7 @@ public class EquationServiceImpl implements EquationService {
 //
 //                }
 //            }
-            count =0;
-        }
+
         Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
         System.out.println(s);
         System.out.println("МАП НИЖЕ!");
