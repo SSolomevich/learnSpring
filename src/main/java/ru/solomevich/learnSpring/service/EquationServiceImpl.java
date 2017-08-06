@@ -47,25 +47,43 @@ public class EquationServiceImpl implements EquationService {
     @Override
     public Equation equalizeEquation (Equation equation)
     {
-
+// Получаем массив из уравнения: нулевой элемент - первая часть уравнения, первый - вторая часть
         String[] world = equation.getEquation().split("=");
-
+// Проверяем на правильность уравнение (обе части не равны нулю и только одно равно)
         if (world.length!=2||world[0].equals("")||world[1].equals("")) {
             equation.setEquation("УРАВНЕНИЕ ВВЕДЕНО НЕВЕРНО!");
             return equation;
         }
-
+// Из первой части уранения убираем плюсы
         String[] world1 = world[0].split("[+]");
         String s = "";
         for (int i=0;i<world1.length;i++)
         {
             s = s+world1[i];
         }
-//        char [] elementsCharArray = world1[0].toCharArray ();
+//  Создал массив для всех символов
+        char [] symbolsCharArray = s.toCharArray ();
+//        массив перевел для дальнейшего редактирования в линкед лист
+        List <String> symbolsList = new LinkedList<String>();
+        for (int a=0; a<symbolsCharArray.length; a++){
+            symbolsList.add(String.valueOf(symbolsCharArray[a]));
+        }
+
+        for (int a=0; a<symbolsList.size();a++){
+            if (symbolsList.get(a).equals("(")){
+                int b = a+3;
+                if (symbolsList.get(b).equals(")")){
+
+                }
+            }
+        }
+
+// Создал массив всех симвомов
         char [] elementsCharArray = s.toCharArray ();
+
         // создаем map для хранения элементов и их количества
         Map<String,Integer> elements = new TreeMap<String, Integer>();
-        // добавляем первый элемент в map
+
 //        elements.put(String.valueOf(elementsCharArray[0]),0);
 //        Set<Map.Entry<String, Integer>> set = elements.entrySet();
 
