@@ -64,22 +64,42 @@ public class EquationServiceImpl implements EquationService {
 //  Создал массив для всех символов
         char [] symbolsCharArray = s.toCharArray ();
 //        массив перевел для дальнейшего редактирования в линкед лист
-        List <String> symbolsList = new LinkedList<String>();
+        LinkedList <String> symbolsList = new LinkedList<String>();
         for (int a=0; a<symbolsCharArray.length; a++){
             symbolsList.add(String.valueOf(symbolsCharArray[a]));
         }
-
+// Сначала все символы в скобках добавляем в конец массива столько раз, какой коэффициент указан после скобок
         for (int a=0; a<symbolsList.size();a++){
+
             if (symbolsList.get(a).equals("(")){
                 int b = a+3;
-                if (symbolsList.get(b).equals(")")){
-
+                while (!symbolsList.get(b).equals(")")){
+                b++;
+                }
+                for (int c=0; c<Integer.parseInt(symbolsList.get(b+1));c++){
+                    for (int d=a+1; d<b;d++) {
+                        symbolsList.add(symbolsList.get(d));
+                    }
                 }
             }
         }
-
+//        Затем удаляем скобки, всё что в скобках и коэффициент за скобками
+        for (int a=0; a<symbolsList.size();a++){
+            if (symbolsList.get(a).equals("(")){
+                while (!symbolsList.get(a).equals(")")){
+                    symbolsList.remove(a);
+                }
+                symbolsList.remove(a);
+                symbolsList.remove(a);
+            }
+        }
+        System.out.println(symbolsList);
+        String s2="";
+        for (int d=0;d<symbolsList.size();d++){
+            s2=s2+symbolsList.get(d);
+        }
 // Создал массив всех симвомов
-        char [] elementsCharArray = s.toCharArray ();
+        char [] elementsCharArray = s2.toCharArray ();
 
         // создаем map для хранения элементов и их количества
         Map<String,Integer> elements = new TreeMap<String, Integer>();
@@ -96,8 +116,10 @@ public class EquationServiceImpl implements EquationService {
 
                     if (i<elementsCharArray.length-1) {
                         if (Character.isUpperCase(elementsCharArray[i + 1])) {
-                            count++;
-                            elements.put(String.valueOf(elementsCharArray[j]), count);
+                            if (j<elementsCharArray.length-1&&Character.isUpperCase(elementsCharArray[j + 1])) {
+                                count++;
+                                elements.put(String.valueOf(elementsCharArray[j]), count);
+                            }
                         }
                         else if (elementsCharArray[i + 1] >= '0' && elementsCharArray[i + 1] <= '9') {
                             count = count + Character.digit(elementsCharArray[i+1], 10);
@@ -114,7 +136,7 @@ public class EquationServiceImpl implements EquationService {
                                     elements.put(String.valueOf(elementsCharArray[j])+String.valueOf(elementsCharArray[j+1]), count);
                                 }
                             }
-                            else {
+                            else if (elementsCharArray[j+1]==elementsCharArray[i+1]){
                                 count++;
                                 elements.put(String.valueOf(elementsCharArray[j])+String.valueOf(elementsCharArray[j+1]), count);
                             }
@@ -186,7 +208,8 @@ public class EquationServiceImpl implements EquationService {
 
         Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
         System.out.println(s);
-        System.out.println("МАП НИЖЕ!");
+        System.out.println(s2);
+
         for (Map.Entry<String, Integer> me : set2) {
             System.out.print(me.getKey() + ": ");
             System.out.println(me.getValue());
