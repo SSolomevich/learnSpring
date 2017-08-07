@@ -54,8 +54,29 @@ public class EquationServiceImpl implements EquationService {
             equation.setEquation("УРАВНЕНИЕ ВВЕДЕНО НЕВЕРНО!");
             return equation;
         }
-// Из первой части уранения убираем плюсы
-        String[] world1 = world[0].split("[+]");
+        if (equalizeLeftRight(world[0],world[1])){
+            System.out.println("РАВНО!!!");
+        }
+        else {
+            System.out.println("Не Равно!");
+        }
+        String endEquation = "";
+        equation.setEquation(endEquation);
+        System.out.println(endEquation);
+        return equation;
+    }
+
+    public Boolean equalizeLeftRight (String left, String right) {
+        Map<String,Integer> elementsLeft = helpEqualizeEquation(left);
+        Map<String,Integer> elementsRight = helpEqualizeEquation(right);
+        if (elementsLeft.equals(elementsRight)) return true;
+        else return false;
+    }
+
+    public Map<String,Integer> helpEqualizeEquation (String leftOrRight)
+    {
+        // Из первой части уранения убираем плюсы
+        String[] world1 = leftOrRight.split("[+]");
         String s = "";
         for (int i=0;i<world1.length;i++)
         {
@@ -74,7 +95,7 @@ public class EquationServiceImpl implements EquationService {
             if (symbolsList.get(a).equals("(")){
                 int b = a+3;
                 while (!symbolsList.get(b).equals(")")){
-                b++;
+                    b++;
                 }
                 for (int c=0; c<Integer.parseInt(symbolsList.get(b+1));c++){
                     for (int d=a+1; d<b;d++) {
@@ -98,6 +119,7 @@ public class EquationServiceImpl implements EquationService {
         for (int d=0;d<symbolsList.size();d++){
             s2=s2+symbolsList.get(d);
         }
+        s2=s2+"Q";
 // Создал массив всех симвомов
         char [] elementsCharArray = s2.toCharArray ();
 
@@ -116,7 +138,7 @@ public class EquationServiceImpl implements EquationService {
 
                     if (i<elementsCharArray.length-1) {
                         if (Character.isUpperCase(elementsCharArray[i + 1])) {
-                            if (j<elementsCharArray.length-1&&Character.isUpperCase(elementsCharArray[j + 1])) {
+                            if (j<elementsCharArray.length-1) {
                                 count++;
                                 elements.put(String.valueOf(elementsCharArray[j]), count);
                             }
@@ -151,61 +173,7 @@ public class EquationServiceImpl implements EquationService {
             count =0;
         }
 
-//            if (Character.isUpperCase(elementsCharArray[j])) {
-//                elements.put(String.valueOf(elementsCharArray[j]), count);
-//            }
-//
-//
-//            else
-//                if (Character.isLowerCase(elementsCharArray[j])){
-//                elements.remove(String.valueOf(elementsCharArray[j-1]));
-//                elements.put(String.valueOf(elementsCharArray[j-1])+String.valueOf(elementsCharArray[j]),count);
-//            }
-////
-////
-////
-//            else
-//                if (elementsCharArray[j]>='0' && elementsCharArray[j]<='9') {
-//                if (elementsCharArray[j - 1] != ')') {
-//
-//                    if (Character.isUpperCase(elementsCharArray[j-1])) {
-////                        count=count+Character.digit(elementsCharArray[j], 10);
-//
-//
-//                        Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
-//                        for (Map.Entry<String, Integer> m : set2) {
-//                           if (m.getKey().equalsIgnoreCase(String.valueOf(elementsCharArray[j-1]))) ;
-//                            elements.put(String.valueOf(elementsCharArray[j-1]), m.getValue()+Character.digit(elementsCharArray[j], 10));
-//                        }
-//
-//
-////                        elements.put(String.valueOf(elementsCharArray[j-1]), count);
-//
-//                    }
-//
-//                    else if (Character.isLowerCase(elementsCharArray[j-1])){
-//                        elements.remove(String.valueOf(elementsCharArray[j-2]));
-//                        count=count+Character.digit(elementsCharArray[j], 10);
-//                        elements.put(String.valueOf(elementsCharArray[j-2])+String.valueOf(elementsCharArray[j-1]),count);
-//                    }
-//
-//
-//
-////                    elements.remove(String.valueOf(elementsCharArray[j - 1]));
-////                    elements.put(String.valueOf(elementsCharArray[j - 1]), count  + Character.digit(elementsCharArray[j], 10));
-//                }
-//                else {
-////                    for (int i = j-2; i<)
-//                    int counter = j - 2;
-//                        while (elementsCharArray[counter] != '('){
-////                            elements.remove(String.valueOf(elementsCharArray[counter]));
-//                            elements.put(String.valueOf(elementsCharArray[counter]), count  + Character.digit(elementsCharArray[j], 10));
-//                            counter=counter-1;
-//                        }
-//
-//                }
-//            }
-
+elements.remove("Q");
         Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
         System.out.println(s);
         System.out.println(s2);
@@ -214,15 +182,10 @@ public class EquationServiceImpl implements EquationService {
             System.out.print(me.getKey() + ": ");
             System.out.println(me.getValue());
         }
-        String endEquation = "";
 
 
 
-
-        equation.setEquation(endEquation);
-        System.out.println(endEquation);
-
-        return equation;
+        return elements;
     }
 
 }
