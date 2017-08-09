@@ -58,17 +58,61 @@ public class EquationServiceImpl implements EquationService {
             System.out.println("РАВНО!!!");
         }
         else {
+
             System.out.println("Не Равно!");
+
+            String[] world0 = world[0].split("[+]");
+            String[] world1 = world[1].split("[+]");
+//            while (equalizeLeftRight(world[0], world[1])) {
+            for (int a = 0; a < world0.length+world1.length; a++) {
+                for (int i = 0; i < world0.length+world1.length; i++) {
+                    for (int j = 0; j < 10; j++) {
+                        for (int k = 0; k < j; k++) {
+                           if(i<world0.length) {
+                               world[0] = world[0] + world0[i];
+                           }
+                           else {
+                               world[1] = world[1] + world1[i-world0.length];
+                           }
+                            if (equalizeLeftRight(world[0], world[1])){
+                                System.out.println("Равно!Равно!Равно!Равно!Равно!");
+                                System.out.println(world[0]+"="+world[1]);
+                                break;
+                            }
+                        }
+                        if (equalizeLeftRight(world[0], world[1])){
+                            break;
+                        }
+                    }
+                    if (equalizeLeftRight(world[0], world[1])){
+                        break;
+                    }
+                }
+                if (equalizeLeftRight(world[0], world[1])){
+                    break;
+                }
+            }
+//            }
+
         }
+//        System.out.println(world[0]);
         String endEquation = "";
         equation.setEquation(endEquation);
-        System.out.println(endEquation);
+
         return equation;
     }
 
     public Boolean equalizeLeftRight (String left, String right) {
         Map<String,Integer> elementsLeft = helpEqualizeEquation(left);
         Map<String,Integer> elementsRight = helpEqualizeEquation(right);
+
+//        Set<Map.Entry<String, Integer>> set1 = elementsLeft.entrySet();
+//        Set<Map.Entry<String, Integer>> set2 = elementsRight.entrySet();
+//
+//        for (Map.Entry<String, Integer> me : set2) {
+//            System.out.print(me.getKey() + ": ");
+//            System.out.println(me.getValue());
+//        }
         if (elementsLeft.equals(elementsRight)) return true;
         else return false;
     }
@@ -114,7 +158,7 @@ public class EquationServiceImpl implements EquationService {
                 symbolsList.remove(a);
             }
         }
-        System.out.println(symbolsList);
+//        System.out.println(symbolsList);
         String s2="";
         for (int d=0;d<symbolsList.size();d++){
             s2=s2+symbolsList.get(d);
@@ -175,13 +219,13 @@ public class EquationServiceImpl implements EquationService {
 
 elements.remove("Q");
         Set<Map.Entry<String, Integer>> set2 = elements.entrySet();
-        System.out.println(s);
-        System.out.println(s2);
+//        System.out.println(s);
+//        System.out.println(s2);
 
-        for (Map.Entry<String, Integer> me : set2) {
-            System.out.print(me.getKey() + ": ");
-            System.out.println(me.getValue());
-        }
+//        for (Map.Entry<String, Integer> me : set2) {
+//            System.out.print(me.getKey() + ": ");
+//            System.out.println(me.getValue());
+//        }
 
 
 
