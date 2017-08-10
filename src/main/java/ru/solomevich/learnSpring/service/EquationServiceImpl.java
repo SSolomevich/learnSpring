@@ -47,6 +47,7 @@ public class EquationServiceImpl implements EquationService {
     @Override
     public Equation equalizeEquation (Equation equation)
     {
+        List<String> list = new LinkedList<String>();
 // Получаем массив из уравнения: нулевой элемент - первая часть уравнения, первый - вторая часть
         String[] world = equation.getEquation().split("=");
 // Проверяем на правильность уравнение (обе части не равны нулю и только одно равно)
@@ -59,46 +60,73 @@ public class EquationServiceImpl implements EquationService {
         }
         else {
 
-            System.out.println("Не Равно!");
+            System.out.println("Не Равно! Начинаю уравнивать!");
 
             String[] world0 = world[0].split("[+]");
             String[] world1 = world[1].split("[+]");
+            String s = world[0];
+            String s2 = world[1];
 //            while (equalizeLeftRight(world[0], world[1])) {
-            for (int a = 0; a < world0.length+world1.length; a++) {
-                for (int i = 0; i < world0.length+world1.length; i++) {
-                    for (int j = 0; j < 10; j++) {
-                        for (int k = 0; k < j; k++) {
-                           if(i<world0.length) {
-                               world[0] = world[0] + world0[i];
-                           }
-                           else {
-                               world[1] = world[1] + world1[i-world0.length];
-                           }
-                            if (equalizeLeftRight(world[0], world[1])){
-                                System.out.println("Равно!Равно!Равно!Равно!Равно!");
-                                System.out.println(world[0]+"="+world[1]);
-                                break;
+            while (list.size() < 2) {
+                for (int a = 0; a < world0.length + world1.length; a++) {
+                    for (int i = 0; i < world0.length + world1.length; i++) {
+                        for (int j = 0; j < 10; j++) {
+                            for (int k = 0; k < j; k++) {
+                                if (i < world0.length) {
+                                    world[0] = world[0] + world0[i];
+                                } else {
+                                    world[1] = world[1] + world1[i - world0.length];
+                                }
+                                if (equalizeLeftRight(world[0], world[1])) {
+                                    System.out.println("Равно!Равно!Равно!Равно!Равно!");
+
+                                    System.out.println(world[0] + "=" + world[1]);
+                                    System.out.println(j + 1 + world0[0] + "=" + world[1]);
+//                                String s = j+1+world0[0]+"="+world[1];
+                                    if (i < world0.length) {
+                                        world0[i] = j + 1 + world0[i];
+                                    } else {
+                                        world1[i - world0.length] = j + 1 + world1[i - world0.length];
+                                    }
+                                    String t = "";
+                                    for (int o = 0; o < world0.length; o++) {
+                                        t = t + world0[o]+"+";
+                                    }
+                                    t=t.substring(0, t.length()-1);
+                                    t = t + "=";
+                                    for (int o = 0; o < world1.length; o++) {
+                                        t = t + world1[o]+"+";
+                                    }
+                                    t=t.substring(0, t.length()-1);
+                                    list.add(t);
+                                    break;
+                                }
+
                             }
+                            world[0] = s;
+                            world[1] = s2;
+//                        if (equalizeLeftRight(world[0], world[1])){
+//                            break;
+//                        }
                         }
-                        if (equalizeLeftRight(world[0], world[1])){
-                            break;
-                        }
+//                    if (equalizeLeftRight(world[0], world[1])){
+//                        break;
+//                    }
                     }
-                    if (equalizeLeftRight(world[0], world[1])){
-                        break;
-                    }
+//                if (equalizeLeftRight(world[0], world[1])){
+//                    break;
+//                }
                 }
-                if (equalizeLeftRight(world[0], world[1])){
-                    break;
-                }
-            }
 //            }
 
+            }
         }
 //        System.out.println(world[0]);
         String endEquation = "";
         equation.setEquation(endEquation);
-
+        if (list.size()!=0) {
+            System.out.println("Готовое уравнение:  " + list.get(0));
+        }
         return equation;
     }
 
