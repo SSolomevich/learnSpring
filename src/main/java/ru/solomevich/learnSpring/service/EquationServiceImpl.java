@@ -67,9 +67,21 @@ public class EquationServiceImpl implements EquationService {
             String s = world[0];
             String s2 = world[1];
 //            while (equalizeLeftRight(world[0], world[1])) {
-            while (list.size() < 2) {
-                for (int a = 0; a < world0.length + world1.length; a++) {
-                    for (int i = 0; i < world0.length + world1.length; i++) {
+
+            exitlabel:    for (int a = 0; a < world0.length + world1.length; a++) {
+
+                for (int b = 0; b < 10; b++) {
+                    for (int c = 0; c < b; c++) {
+                        if (a < world0.length) {
+                            world[0] = world[0] + world0[a];
+                            world0[a] = b + 1 + world0[a];
+                        } else {
+                            world[1] = world[1] + world1[a - world0.length];
+                            world1[a - world0.length] = b + 1 + world1[a - world0.length];
+                        }
+                    }
+                    for (int i = a; i < world0.length + world1.length; i++) {
+
                         for (int j = 0; j < 10; j++) {
                             for (int k = 0; k < j; k++) {
                                 if (i < world0.length) {
@@ -90,16 +102,16 @@ public class EquationServiceImpl implements EquationService {
                                     }
                                     String t = "";
                                     for (int o = 0; o < world0.length; o++) {
-                                        t = t + world0[o]+"+";
+                                        t = t + world0[o] + "+";
                                     }
-                                    t=t.substring(0, t.length()-1);
+                                    t = t.substring(0, t.length() - 1);
                                     t = t + "=";
                                     for (int o = 0; o < world1.length; o++) {
-                                        t = t + world1[o]+"+";
+                                        t = t + world1[o] + "+";
                                     }
-                                    t=t.substring(0, t.length()-1);
+                                    t = t.substring(0, t.length() - 1);
                                     list.add(t);
-                                    break;
+                                    break exitlabel;
                                 }
 
                             }
@@ -117,10 +129,11 @@ public class EquationServiceImpl implements EquationService {
 //                    break;
 //                }
                 }
+            }
 //            }
 
             }
-        }
+
 //        System.out.println(world[0]);
         String endEquation = "";
         equation.setEquation(endEquation);
