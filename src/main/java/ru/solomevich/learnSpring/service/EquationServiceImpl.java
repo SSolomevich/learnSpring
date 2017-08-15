@@ -45,7 +45,36 @@ public class EquationServiceImpl implements EquationService {
     }
 
     @Override
-    public Equation equalizeEquation (Equation equation)
+    public Equation equalizeEquation (Equation equation) {
+        List<String> list = new LinkedList<String>();
+// Получаем массив из уравнения: нулевой элемент - первая часть уравнения, первый - вторая часть
+        String[] world = equation.getEquation().split("=");
+// Проверяем на правильность уравнение (обе части не равны нулю и только один знак "равно")
+        if (world.length!=2||world[0].equals("")||world[1].equals("")) {
+            equation.setEquation("УРАВНЕНИЕ ВВЕДЕНО НЕВЕРНО!");
+            return equation;
+        }
+        if (equalizeLeftRight(world[0],world[1])){
+            System.out.println("РАВНО!!!");
+        }
+
+        else {
+// Считываем размер вводимой матрицы
+            int size1 = world[0].length()+world[1].length()-1;
+            int size2 = helpEqualizeEquation(world[0]).size();
+// Будем хранить матрицу в векторе, состоящем из
+// векторов вещественных чисел
+            double [][] matrix = new double[size1][size2];
+        }
+
+
+        return equation;
+    }
+
+
+
+
+    public Equation equalizeEquatio (Equation equation)
     {
         List<String> list = new LinkedList<String>();
 // Получаем массив из уравнения: нулевой элемент - первая часть уравнения, первый - вторая часть
