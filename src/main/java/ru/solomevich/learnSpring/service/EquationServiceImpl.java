@@ -6,6 +6,7 @@ import ru.solomevich.learnSpring.dao.EquationDao;
 import ru.solomevich.learnSpring.model.Equation;
 
 import javax.transaction.Transactional;
+import java.io.PrintWriter;
 import java.util.*;
 
 /**
@@ -60,12 +61,91 @@ public class EquationServiceImpl implements EquationService {
 
         else {
 // Считываем размер вводимой матрицы
-            int size1 = world[0].length()+world[1].length()-1;
-            int size2 = helpEqualizeEquation(world[0]).size();
+            String[] world0 = world[0].split("[+]");
+            String[] world1 = world[1].split("[+]");
+
+
+            Map<String, Integer> map = helpEqualizeEquation(world[1]);
+
+            int size1 = world0.length + world1.length;
+            int size2 = map.size();
+
+            List<String> list2 = new LinkedList<String>();
+            Set<Map.Entry<String, Integer>> set = map.entrySet();
+            for (Map.Entry<String, Integer> me : set) {
+                list2.add(me.getKey());
+            }
 // Будем хранить матрицу в векторе, состоящем из
 // векторов вещественных чисел
-            double [][] matrix = new double[size1][size2];
-        }
+            double[][] matrix = new double[size1][size2];
+
+// Добавляем в матрицу все значения из левой части уравнения
+            for (int i = 0; i < world0.length; i++) {
+                Map<String, Integer> map2 = helpEqualizeEquation(world0[i]);
+                for (int j = 0; j < size2; j++) {
+                    Set<Map.Entry<String, Integer>> set2 = map2.entrySet();
+
+
+                    for (Map.Entry<String, Integer> me : set2) {
+                        if (list2.get(j).equals(me.getKey())) {
+                            matrix[i][j] = me.getValue();
+                        }
+//                        System.out.print(me.getKey() + ": ");
+//                        System.out.println(me.getValue());
+
+                    }
+                }
+            }
+
+
+// Добавляем в матрицу все значения из правой части уравнения
+//            for (int i = world0.length; i < size1-1; i++) {
+            for (int i = 0; i < world1.length; i++) {
+                Map<String, Integer> map3 = helpEqualizeEquation(world1[i]);
+                for (int j = 0; j < size2; j++) {
+                    Set<Map.Entry<String, Integer>> set3 = map3.entrySet();
+
+                    for (Map.Entry<String, Integer> me2 : set3) {
+                        if (list2.get(j).equals(me2.getKey())) {
+                            matrix[i + world0.length][j] = - me2.getValue();
+                        }
+//                        System.out.print(me2.getKey() + ": ");
+//                        System.out.println(me2.getValue());
+
+                    }
+                }
+            }
+
+
+            for (int i = 0; i < size1; i++) {
+                for (int j = 0; j < size2; j++) {
+                    System.out.print(matrix[i][j] + "|");
+                }
+                System.out.println();
+            }
+            System.out.println();
+            System.out.println();
+// Переделаем матрицу - поменяем столбцы и строки местами
+            double[][] matrix2 = new double[size2][size1];
+            for (int i = 0; i < size1; i++) {
+                for (int j = 0; j < size2; j++) {
+                    matrix2[j][i]=matrix[i][j];
+                }
+            }
+            for (int i = 0; i < size2; i++) {
+                for (int j = 0; j < size1; j++) {
+                    System.out.print(matrix2[i][j] + "|");
+                }
+                System.out.println();
+            }
+//            __________________
+
+
+//            __________________
+
+
+            }
+//        }
 
 
         return equation;
