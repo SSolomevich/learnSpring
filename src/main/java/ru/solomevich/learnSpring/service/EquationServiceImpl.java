@@ -48,8 +48,10 @@ public class EquationServiceImpl implements EquationService {
     @Override
     public Equation equalizeEquation (Equation equation) {
         List<String> list = new LinkedList<String>();
+        String s = "";
 // Получаем массив из уравнения: нулевой элемент - первая часть уравнения, первый - вторая часть
         String[] world = equation.getEquation().split("=");
+        String[] compound = equation.getEquation().split("[=+]");
 // Проверяем на правильность уравнение (обе части не равны нулю и только один знак "равно")
         if (world.length!=2||world[0].equals("")||world[1].equals("")) {
             equation.setEquation("УРАВНЕНИЕ ВВЕДЕНО НЕВЕРНО!");
@@ -141,13 +143,76 @@ public class EquationServiceImpl implements EquationService {
 //            __________________
 
 
-//            __________________
+
+double [] d = calculate(matrix2);
+            double [] d2 = new double[d.length+1];
+            int [] d3 = new int[d2.length];
+           for (int r=0;r<d.length;r++) {
+//               System.out.println(d[r]);
+               d2[r]=-d[r];
+           }
+           d2[d.length]=1;
+           int ok=0;
 
 
+            exitlabel:   for (int t=1;t<100;t++) {
+                for (int r = 0; r < d2.length; r++) {
+                 if (d2[r] % 1 > 0.04) {
+                      ok=ok+1;
+                  }
+                }
+                if (ok>0) {
+                    for (int a = 0; a < d2.length; a++) {
+                        d2[a] = d2[a] * (t + 1) / t;
+                    }
+                    ok=0;
+                }
+                else {
+                    break exitlabel;
+                }
+
+           }
+
+           for (int r=0;r<d2.length;r++){
+                d3[r]=(int)d2[r];
+           }
+
+//            for (int r=0;r<d3.length;r++) {
+//                System.out.println(d3[r]);
+//                if(d3[r]==1){
+//                    s=s+compound[r]
+//                }
+//                s=s+d3[r]+compound[r];
+//
+//            }
+            for (int r=0;r<world0.length;r++) {
+                if(d3[r]==1){
+                    s=s+world0[r]+"+";
+                }
+                else {
+                    s=s+d3[r]+world0[r]+"+";
+                }
             }
-//        }
+            s=s.substring(0,s.length()-1);
+            s=s+"=";
+            for (int r=0;r<world1.length;r++) {
+                if(d3[r]==1){
+                    s=s+world1[r]+"+";
+                }
+                else {
+                    s=s+d3[r]+world1[r]+"+";
+                }
+            }
+            s=s.substring(0,s.length()-1);
+            System.out.println("Ниже compound");
+            for (int r=0;r<compound.length;r++) {
+                System.out.println(compound[r]);
+            }
+            System.out.println("УРАВНЕНИЕ:"+s);
 
+        }
 
+equation.setEquation(s);
         return equation;
     }
 
@@ -382,5 +447,76 @@ elements.remove("Q");
         return elements;
     }
 
-}
 
+
+    public double[] calculate(double[][] array) throws IllegalArgumentException {
+        if (array.length > array[0].length - 1) {
+            throw new IllegalArgumentException("число уравнений должно быть равно количеству неизвестных");
+        }
+        int[] p = new int[array.length];
+        for (int i = 0; i < p.length; i++) {
+            p[i] = i;
+        }
+
+        //факторизация матрицы A
+        for (int k = 0; k < array[0].length - 1; k++) {
+            double max = 0;
+            int numberRowForReplace = k;
+            for (int j = k; j < array.length; j++) {
+                if (Math.abs(array[j][k]) > max) {
+                    numberRowForReplace = j;
+                    max = Math.abs(array[j][k]);
+                }
+            }
+            if (max == 0) {
+                throw new IllegalArgumentException("матрица не должна быть вырожденной");
+            }
+
+            //меняем местами номера строк, которые будут переставлены
+            int value = p[k];
+            p[k] = p[numberRowForReplace];
+            p[numberRowForReplace] = value;
+
+            //переставляем соотвествующие строки
+            double[] row = array[k];
+            array[k] = array[numberRowForReplace];
+            array[numberRowForReplace] = row;
+
+            //прямая подстановка
+            for (int i = k + 1; i < array.length; i++) {
+                //делим элементы ниже главной диагонали на ведущий
+                array[i][k] = array[i][k] / array[k][k];
+                for (int j = k + 1; j < array.length; j++) {
+                    //вычитаем элементы текущей k-строчки помноженные на коэффициент из элементов строчек ниже ее
+                    array[i][j] = array[i][j] - array[i][k] * array[k][j];
+                }
+            }
+        }
+
+        // прямая подстановка
+        // вычисление y системы Ly=Pb
+        double[] y = new double[array.length];
+        for (int i = 0; i < array.length; i++) {
+            double value = 0;
+            for (int j = 0; j < i; j++) {
+                value += array[i][j] * y[j];
+            }
+            y[i] = array[i][array[0].length - 1] - value;
+        }
+
+
+        // обратная подстановка
+        // вычисление x системы Ux=y
+
+        double[] x = new double[array.length];
+        for (int i = array.length - 1; i >= 0; i--) {
+            double value = 0;
+            for (int j = i + 1; j < array.length; j++) {
+                value += array[i][j] * x[j];
+            }
+            x[i] = (y[i] - value) / array[i][i];
+        }
+
+        return x;
+    }
+}
