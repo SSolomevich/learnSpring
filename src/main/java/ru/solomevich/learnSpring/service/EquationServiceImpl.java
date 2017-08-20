@@ -143,12 +143,19 @@ public class EquationServiceImpl implements EquationService {
 //            __________________
 
 
-
+matrix2=cutMatrix(matrix2);
+            System.out.println("ПОСЛЕ ОБРЕЗКИ:");
+            for (int i = 0; i < matrix2.length; i++) {
+                for (int j = 0; j < matrix2[0].length; j++) {
+                    System.out.print(matrix2[i][j] + "|");
+                }
+                System.out.println();
+            }
 double [] d = calculate(matrix2);
             double [] d2 = new double[d.length+1];
             int [] d3 = new int[d2.length];
            for (int r=0;r<d.length;r++) {
-//               System.out.println(d[r]);
+               System.out.println(d[r]);
                d2[r]=-d[r];
            }
            d2[d.length]=1;
@@ -172,11 +179,19 @@ double [] d = calculate(matrix2);
                 }
 
            }
+            System.out.println("D2:");
+            for (int r=0;r<d2.length;r++) {
+                System.out.println(d2[r]);
 
+            }
            for (int r=0;r<d2.length;r++){
                 d3[r]=(int)d2[r];
            }
+            System.out.println("D3:");
+            for (int r=0;r<d3.length;r++) {
+                System.out.println(d3[r]);
 
+            }
 //            for (int r=0;r<d3.length;r++) {
 //                System.out.println(d3[r]);
 //                if(d3[r]==1){
@@ -196,11 +211,11 @@ double [] d = calculate(matrix2);
             s=s.substring(0,s.length()-1);
             s=s+"=";
             for (int r=0;r<world1.length;r++) {
-                if(d3[r]==1){
+                if(d3[r+world0.length]==1){
                     s=s+world1[r]+"+";
                 }
                 else {
-                    s=s+d3[r]+world1[r]+"+";
+                    s=s+d3[r+world0.length]+world1[r]+"+";
                 }
             }
             s=s.substring(0,s.length()-1);
@@ -448,9 +463,57 @@ elements.remove("Q");
     }
 
 
+    public double[][] cutMatrix(double[][] array){
+        boolean ok = false;
+        boolean ok2 = false;
+        List<Integer> listRemove = new LinkedList<Integer>();
+        for (int i=0;i<array.length-1;i++){
+            for (int j=0;j<array[0].length;j++){
+            if ((array[i][j]==0&&array[i+1][j]!=0)||(array[i][j]!=0&&array[i+1][j]==0)){
+                ok=true;
+            }
+            }
+            if (ok==false){
+                listRemove.add(i);
+            }
+            ok=false;
+        }
+        System.out.println("listREMOVE:");
+        for (int k = 0; k < listRemove.size(); k++) {
+            System.out.println(listRemove.get(k));
+        }
+        if(listRemove.size()==0){
+            return array;
+        }
+
+
+        int m=0;
+        double[][] array2 = new double[array.length-listRemove.size()][array[0].length];
+        for (int i=0;i<array.length;i++) {
+            for (int k = 0; k < listRemove.size(); k++) {
+                if (i==listRemove.get(k))
+                {
+                    ok2=true;
+                }
+                if (ok2==false){
+                    for (int j = 0; j < array[0].length; j++) {
+                    array2[i-m][j]=array[i][j];
+                    }
+                }
+                else {
+                   m++;
+                }
+
+
+            }
+            ok2=false;
+        }
+        return array2;
+    }
+
 
     public double[] calculate(double[][] array) throws IllegalArgumentException {
-        if (array.length > array[0].length - 1) {
+        if (array.length != array[0].length - 1) {
             throw new IllegalArgumentException("число уравнений должно быть равно количеству неизвестных");
         }
         int[] p = new int[array.length];
