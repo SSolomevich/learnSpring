@@ -143,14 +143,14 @@ public class EquationServiceImpl implements EquationService {
 //            __________________
 
 
-matrix2=cutMatrix(matrix2);
-            System.out.println("ПОСЛЕ ОБРЕЗКИ:");
-            for (int i = 0; i < matrix2.length; i++) {
-                for (int j = 0; j < matrix2[0].length; j++) {
-                    System.out.print(matrix2[i][j] + "|");
-                }
-                System.out.println();
-            }
+//matrix2=cutMatrix(matrix2);
+//            System.out.println("ПОСЛЕ ОБРЕЗКИ:");
+//            for (int i = 0; i < matrix2.length; i++) {
+//                for (int j = 0; j < matrix2[0].length; j++) {
+//                    System.out.print(matrix2[i][j] + "|");
+//                }
+//                System.out.println();
+//            }
 double [] d = calculate(matrix2);
             double [] d2 = new double[d.length+1];
             int [] d3 = new int[d2.length];
@@ -466,22 +466,31 @@ elements.remove("Q");
     public double[][] cutMatrix(double[][] array){
         boolean ok = false;
         boolean ok2 = false;
+
         List<Integer> listRemove = new LinkedList<Integer>();
         for (int i=0;i<array.length-1;i++){
             for (int j=0;j<array[0].length;j++){
             if ((array[i][j]==0&&array[i+1][j]!=0)||(array[i][j]!=0&&array[i+1][j]==0)){
                 ok=true;
             }
+
             }
+
             if (ok==false){
                 listRemove.add(i);
             }
             ok=false;
+
         }
+
         System.out.println("listREMOVE:");
         for (int k = 0; k < listRemove.size(); k++) {
             System.out.println(listRemove.get(k));
         }
+
+
+
+
         if(listRemove.size()==0){
             return array;
         }
@@ -503,10 +512,44 @@ elements.remove("Q");
                 else {
                    m++;
                 }
-
-
             }
             ok2=false;
+        }
+        return array2;
+    }
+
+    public double[][] cutMatrix2(double[][] array){
+
+        int max = 0;
+        int column = 0;
+        int n=0;
+        for (int i=0;i<array.length;i++){
+
+            for (int j=0;j<array[0].length;j++){
+                if (array[i][j]!=0){
+                    n++;
+                }
+            }
+            if (n>max){
+                max=n;
+                column=i;
+            }
+            n=0;
+        }
+
+        double[][] array2 = new double[array.length-1][array[0].length];
+        int m = 0;
+        for (int i=0;i<array.length;i++) {
+
+                if (i!=column)
+                {
+                    for (int j = 0; j < array[0].length; j++) {
+                        array2[i-m][j]=array[i][j];
+                    }
+                }
+                else {
+                    m=1;
+                }
         }
         return array2;
     }
@@ -514,8 +557,27 @@ elements.remove("Q");
 
     public double[] calculate(double[][] array) throws IllegalArgumentException {
         if (array.length != array[0].length - 1) {
-            throw new IllegalArgumentException("число уравнений должно быть равно количеству неизвестных");
+            array=cutMatrix(array);
+//            throw new IllegalArgumentException("число уравнений должно быть равно количеству неизвестных");
         }
+        System.out.println("После первой обрезки:");
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + "|");
+            }
+            System.out.println();
+        }
+        while (array.length != array[0].length - 1){
+            array = cutMatrix2(array);
+        }
+        System.out.println("После всех обрезок:");
+        for (int i = 0; i < array.length; i++) {
+            for (int j = 0; j < array[0].length; j++) {
+                System.out.print(array[i][j] + "|");
+            }
+            System.out.println();
+        }
+
         int[] p = new int[array.length];
         for (int i = 0; i < p.length; i++) {
             p[i] = i;
