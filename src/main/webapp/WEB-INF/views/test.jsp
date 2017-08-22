@@ -48,10 +48,9 @@
     </style>
 </head>
 <body>
-Первая страница Spring!
 
-<div class="table" >
-<table cellspacing="0px" cellpadding="2px" border="0px">
+
+<%--<table cellspacing="0px" cellpadding="2px" border="0px">--%>
 
 
     <%--<c:forEach items="${equation}" var="c">--%>
@@ -61,46 +60,66 @@
         <%--</tr>--%>
     <%--</c:forEach>--%>
 
-    <c:forEach items="${equationList}" var="equation">
-        <tr>
-            <td class="td" align="center">${equation.id}</td>
-            <td class="td" align="center"> ${equation.equation}</td>
-            <td><a href="<c:url value='/remove/${equation.id}'/>">Delete</a></td>
-        </tr>
-    </c:forEach>
+    <%--<c:forEach items="${equationList}" var="equation">--%>
+        <%--<tr>--%>
+            <%--<td class="td" align="center">${equation.id}</td>--%>
+            <%--<td class="td" align="center"> ${equation.equation}</td>--%>
+            <%--<td><a href="<c:url value='/remove/${equation.id}'/>">Delete</a></td>--%>
+        <%--</tr>--%>
+    <%--</c:forEach>--%>
 
-</table>
+<%--</table>--%>
 
 
 
 
 <%--<form:form  action="add"  method="post">--%>
-    <form:form  action="add" >
-    <tr style="background-color: #F0F0F0">
-        <td class="td" > Введите уравнение реакции без коэффициентов метод add</td>
-        <td class="i" > <input type="text" name="equation" maxlength="50"  size="14"  class="i2"/></td>
-    </tr>
-    <tr>
-        <td class="td"> </td>
-        <td class="td2"> <input type="submit" name="success" value="Ок" class="input"> </td>
-    </tr>
-</form:form>
+    <%--<form:form  action="add" >--%>
+    <%--<tr style="background-color: #F0F0F0">--%>
+        <%--<td class="td" > Введите уравнение реакции без коэффициентов метод add</td>--%>
+        <%--<td class="i" > <input type="text" name="equation" maxlength="50"  size="14"  class="i2"/></td>--%>
+    <%--</tr>--%>
+    <%--<tr>--%>
+        <%--<td class="td"> </td>--%>
+        <%--<td class="td2"> <input type="submit" name="success" value="Ок" class="input"> </td>--%>
+    <%--</tr>--%>
+<%--</form:form>--%>
 
     <form:form  action="equalize" >
+    <table>
     <tr style="background-color: #F0F0F0">
-        <td class="td" > Введите уравнение реакции без коэффициентов метод equalize</td>
-        <td class="i" > <input type="text" name="equation" maxlength="50"  size="14"  class="i2"/></td>
+        <td class="td" > Введите уравнение реакции без коэффициентов </td>
+
     </tr>
+        <tr>
+            <td class="i" > <input type="text" name="equation" maxlength="50"  size="14"  class="i2"/></td>
+        </tr>
     <tr>
-        <td class="td"> </td>
+        <%--<td class="td"> </td>--%>
         <td class="td2"> <input type="submit" name="success" value="Ок" class="input"> </td>
     </tr>
+    </table>
     </form:form>
 
 
+<br>
+
+<div> Решение:</div>
+        <%--<td class="td" align="center">${lastEquation.id}</td>--%>
+        <%--<td class="td" align="center"> ${lastEquation.equation}</td>--%>
+<div> ${lastEquation.equation}
+</div>
 
 
-
+<br>
+    <br>
+    <br>
+    <form:form  action="list" >
+    <tr>
+        <td class="td"> </td>
+        <td class="td2"> <input type="submit" name="success" value="List Equation" class="input"> </td>
+    </tr>
+    </form:form>
 
 </body>
 </html>

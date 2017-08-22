@@ -44,11 +44,15 @@ public class ContactController {
 //            map.put("test", new Equation(1,"a+b"));
             map.put("equationList", equationService.listEquation());
 //            map.put("equation", equationDao.listEq());
+            map.put("lastEquation", equationService.listEquation().get(equationService.listEquation().size()-1));
 
             return "test";
         }
 
-//    @RequestMapping(value = "/add", method = RequestMethod.POST)
+
+
+
+
     @RequestMapping(value = "/add")
     public String addEquation(@ModelAttribute("equation") Equation equation) {
 
@@ -61,7 +65,7 @@ public class ContactController {
     public String deleteUser(@PathVariable("id") int id)
     {
         this.equationService.deleteEquation(id);
-        return "redirect:/";
+        return "redirect:/list";
     }
 
     @RequestMapping(value = "/equalize")
@@ -71,6 +75,14 @@ public class ContactController {
 //        equationService.addEquation(new Equation(1, equationService.equalizeEquation(str)));
 //        map.put("equalize", );
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/list")
+    public String listEquation(Map<String, Object> map) {
+
+        map.put("equationList2", equationService.listEquation());
+
+        return "list";
     }
 
     }
