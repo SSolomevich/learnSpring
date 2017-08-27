@@ -42,23 +42,34 @@ public class ContactController {
 //            System.out.println("equationDao"+equationDao.listEq().get(0).getId());
 //            System.out.println("equationDao"+equationService.listEquation());
 //            map.put("test", new Equation(1,"a+b"));
-            map.put("equationList", equationService.listEquation());
+//            map.put("equationList", equationService.listEquation());
 //            map.put("equation", equationDao.listEq());
-            map.put("lastEquation", equationService.listEquation().get(equationService.listEquation().size()-1));
+//            map.put("lastEquation", equationService.listEquation().get(equationService.listEquation().size()-1));
 
             return "test";
         }
 
+    @RequestMapping(value = "/equalizeHome")
+    public String equalizeHome (Map<String, Object> map) {
+        map.put("equationList", equationService.listEquation());
+//        if (equationService.listEquation().size()>0){
 
+        map.put("lastEquation", equationService.listEquation().get(equationService.listEquation().size()-1));
+//        }
+//        else {
+//            map.put("lastEquation", null);
+//        }
+        return "equalizeReady";
+    }
 
 
 
     @RequestMapping(value = "/add")
     public String addEquation(@ModelAttribute("equation") Equation equation) {
 
-       equationService.addEquation(equation);
+       this.equationService.addEquation(equation);
 
-        return "redirect:/";
+        return "redirect:/equalizeHome";
     }
 
     @RequestMapping("/remove/{id}")
@@ -74,7 +85,7 @@ public class ContactController {
         equationService.addEquation(equationService.equalizeEquation(equation));
 //        equationService.addEquation(new Equation(1, equationService.equalizeEquation(str)));
 //        map.put("equalize", );
-        return "redirect:/";
+        return "redirect:/equalizeHome";
     }
 
     @RequestMapping(value = "/list")
@@ -83,6 +94,15 @@ public class ContactController {
         map.put("equationList2", equationService.listEquation());
 
         return "list";
+    }
+
+
+    @RequestMapping(value = "/equalize1")
+    public String equalizeReady(Map<String, Object> map) {
+
+
+
+        return "equalize";
     }
 
     }
