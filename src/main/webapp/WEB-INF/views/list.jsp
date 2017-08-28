@@ -17,46 +17,36 @@
     <style type="text/css">
         .table
         {
-            margin-left: 5px;
-            margin-top: 5px;
+            margin: 0% 20% 0% 0%;
             border-collapse: collapse;
             font-family: Arial, sans-serif;
             color: #333;
             line-height: 2px;
             border: 3px;
-
         }
-        .th
-        {
+        .td{
             font-family: "Times New Roman", sans-serif;
-            font-weight: bold;
-            font-size: 14px;
-            /*padding: 10px ;*/
-            /*height: 40px;*/
-            /*width: 150px;*/
-            background-color: #C0C0C7 ;
+            font-size: 20px;
             text-align: center;
-        }
-        .td
-        {
-            font-family: "Times New Roman", sans-serif;
-            font-size: 14px;
-            /*padding: 10px ;*/
-            /*height: 40px;*/
-            /*width: 150px;*/
-            /*text-align: center;*/
+
         }
     </style>
 </head>
 <body>
-<table cellspacing="0px" cellpadding="2px" border="0px">
+
 <c:forEach items="${equationList2}" var="equation">
-    <tr>
-        <td class="td" align="center">${equation.id}</td>
-        <td class="td" align="center"> ${equation.equation}</td>
+<div class="table" >
+    <table>
+        <tr >
+
+
+        <td class="td" align="center" width="100px">${equation.id}</td>
+        <td class="td" align="center"  width="600px"> ${equation.equation}</td>
         <td><a href="<c:url value='/remove/${equation.id}'/>">Delete</a></td>
     </tr>
-</c:forEach>
+
 </table>
+</div>
+</c:forEach>
 </body>
 </html>

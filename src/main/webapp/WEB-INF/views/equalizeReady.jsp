@@ -13,6 +13,39 @@
 <html>
 <head>
     <title>Equalize</title>
+    <style type="text/css">
+        .table
+        {
+            margin: 5% 20% 30% 20%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+            color: #333;
+            line-height: 2px;
+            border: 3px;
+        }
+        .td1{
+            font-family: "Times New Roman", sans-serif;
+            font-size: 24px;
+            text-align: center;
+        }
+        .tdEquation{
+            font-family: "Times New Roman", sans-serif;
+            font-size: 28px;
+            text-align: center;
+            color: red;
+        }
+        .inp{
+            width: 600px; /* Ширина поля с учетом padding */
+            height: 40px; /* Высота */
+            font-size: 22px;
+            color: blue;
+        }
+        .td2{
+            font-family: "Times New Roman", sans-serif;
+            font-size: 24px;
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
 
@@ -33,40 +66,53 @@
 
 
 <form:form  action="equalize" >
-    <table>
-        <tr style="background-color: #F0F0F0">
-            <td class="td" > Введите уравнение реакции без коэффициентов </td>
+    <div class="table" >
+        <table>
+            <tr >
+                <td class="td1" > Введите уравнение реакции без коэффициентов </td>
+            </tr>
+            <tr><td class="td2"> </td></tr>
+            <tr>
+                <td class="tdEquation" > <input type="text" name="equation" class="inp" maxlength="50"/></td>
+            </tr>
+            <tr><td class="td2"> </td></tr>
+            <tr>
+                <td class="td2"> <input type="submit" name="success" value="Уравнять" class="input"> </td>
+            </tr>
 
-        </tr>
-        <tr>
-            <td class="i" > <input type="text" name="equation" maxlength="50"  size="14"  class="i2"/></td>
-        </tr>
-        <tr>
-                <%--<td class="td"> </td>--%>
-            <td class="td2"> <input type="submit" name="success" value="Ок" class="input"> </td>
-        </tr>
-    </table>
 </form:form>
 
-
+            <tr>
+                <td class="td2"><br></td>
+            </tr>
 <br>
 
-<div> Решение:</div>
+            <tr>
+                <td class="td1"> Решение:</td>
+            </tr>
 <%--<td class="td" align="center">${lastEquation.id}</td>--%>
 <%--<td class="td" align="center"> ${lastEquation.equation}</td>--%>
-<div> ${lastEquation.equation}
-</div>
+            <tr>
+                <td class="tdEquation"> ${lastEquation.equation}</td>
+            </tr>
 
 
-<br>
+            <tr>
+                <td class="td2"><br></td>
+            </tr>
+
+            <tr>
+                <td class="td2"><br></td>
+            </tr>
 <br>
 <br>
 <form:form  action="list" >
     <tr>
-        <td class="td"> </td>
-        <td class="td2"> <input type="submit" name="success" value="List Equation" class="input"> </td>
+
+        <td class="td2"> <input type="submit" name="success" value="Список всех уравненных реакций" class="input"> </td>
     </tr>
 </form:form>
-
+        </table>
+    </div>
 </body>
 </html>
