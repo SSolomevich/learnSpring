@@ -105,4 +105,16 @@ public class ContactController {
         return "equalize";
     }
 
+    @RequestMapping(value = "/tableMendeleev")
+    public String tableMendeleev() {
+
+        return "tableMendeleev";
+    }
+
+    @RequestMapping(value = "/elementDescription")
+    public String elementDescription(String element) {
+
+        return "elementDescription";
+    }
+
     }
