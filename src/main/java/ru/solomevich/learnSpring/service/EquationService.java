@@ -8,9 +8,9 @@ import java.util.List;
  * Created by 15 on 24.06.2017.
  */
 public interface EquationService {
-    public List<Equation> listEquation();
-    public void addEquation(Equation equation);
-    public void deleteEquation(int id);
-    public Equation equalizeEquation (Equation equation);
+    List<Equation> listEquation();
+    void addEquation(Equation equation);
+    void deleteEquation(int id);
+    Equation equalizeEquation (Equation equation);
 
 }

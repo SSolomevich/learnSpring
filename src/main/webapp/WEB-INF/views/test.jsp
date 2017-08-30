@@ -178,7 +178,7 @@
         <table >
 
 
-            <tr><td> <form:form  action="equalize1" ><button type="submit"><p class="two">Уравнять реакцию</p><p class="fohr ">(Demo-версия)</p></button> </form:form></td><td ></td><td><button type="button"><p class="two">Вычислить молекулярную массу</p><p class="three">(В разработке)</p></button></td></tr>
+            <tr><td> <form:form  action="equalize1" ><button type="submit"><p class="two">Уравнять реакцию</p><p class="fohr ">(Demo-версия)</p></button> </form:form></td><td ></td><td><form:form  action="calculation1" ><button type="submit"><p class="two">Вычислить молекулярную массу</p><p class="three">(В разработке)</p></button></form:form></td></tr>
             <tr><td ></td><td><button type="button"><p class="two">Решение задач</p><p class="three">(В разработке)</p></button></td><td ></td></tr>
             <tr><td><form:form  action="tableMendeleev" ><button type="submit"><p class="two">Таблица Менделеева и свойства элементов</p><p class="three">(В разработке)</p></button></form:form></td><td ></td><td><button type="button"><p class="two">Другая полезная информация</p><p class="three">(В разработке)</p></button></td></tr>
 

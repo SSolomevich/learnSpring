@@ -28,7 +28,7 @@ public class EquationServiceImpl implements EquationService {
     @Override
     @Transactional
     public List<Equation> listEquation() {
-        System.out.println("Сервис работает!!!!!!!!!!!!!!");
+//        System.out.println("Сервис работает!!!!!!!!!!!!!!");
         return this.equationDao.listEq();
     }
     @Override

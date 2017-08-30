@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import ru.solomevich.learnSpring.dao.EquationDaoImpl;
 import ru.solomevich.learnSpring.model.Equation;
+import ru.solomevich.learnSpring.service.ElementsService;
 import ru.solomevich.learnSpring.service.EquationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,12 +22,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import javax.annotation.Resource;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
 @Controller
 public class ContactController {
 
-      private EquationService equationService;
+        private EquationService equationService;
+        private ElementsService elementsService;
+
 
     @Autowired(required = true)
     @Qualifier(value = "equationService")
@@ -34,6 +39,11 @@ public class ContactController {
         this.equationService = equationService;
     }
 
+    @Autowired(required = true)
+    @Qualifier(value = "elementsService")
+    public void setElementsService(ElementsService elementsService) {
+        this.elementsService = elementsService;
+    }
 
         @RequestMapping(value = "/",  method = RequestMethod.GET)
         public String home(Map<String, Object> map){
@@ -115,6 +125,43 @@ public class ContactController {
     public String elementDescription(String element) {
 
         return "elementDescription";
+    }
+
+
+
+
+    @RequestMapping(value = "/calculation1")
+    public String calculation1(  ) {
+
+
+        return "calcMolWeight/calculation";
+    }
+
+    @RequestMapping(value = "/calc")
+    public String calculation(@ModelAttribute("equation") Equation equation,  Map<String, Object> map, Model model) {
+        equationService.addEquation(equation);
+//        Set<Map.Entry<String, Integer>> set2 = map.entrySet();
+//        System.out.println("map");
+//        for (Map.Entry<String, Integer> me : set2) {
+//            System.out.print(me.getKey() + ": ");
+//            System.out.println(me.getValue());
+//        }
+        return "redirect:calculationH";
+    }
+
+    @RequestMapping(value = "/calculationH")
+    public String calculationReady (Map<String, Integer> map2) {
+        Equation equation = equationService.listEquation().get(equationService.listEquation().size()-1);
+        map2.put("cR", 123);
+//        Set<Map.Entry<String, Integer>> set2 = map2.entrySet();
+//        System.out.println("map2");
+//        for (Map.Entry<String, Integer> me : set2) {
+//            System.out.print(me.getKey() + ": ");
+//            System.out.println(me.getValue());
+//            map2.put(me.getKey(),me.getValue());
+//        }
+
+        return "calcMolWeight/calculationReady";
     }
 
     }
