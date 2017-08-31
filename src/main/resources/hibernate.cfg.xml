@@ -5,8 +5,9 @@
 
 <hibernate-configuration>
     <session-factory>
-        <mapping class="ru.solomevich.learnSpring.model.Equation" />
         <mapping class="ru.solomevich.learnSpring.model.Elements" />
+        <mapping class="ru.solomevich.learnSpring.model.Equation" />
+
     </session-factory>
 
 

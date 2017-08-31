@@ -30,6 +30,7 @@
         <property name="annotatedClasses">
             <list>
                 <value>ru.solomevich.learnSpring.model.Equation</value>
+                <value>ru.solomevich.learnSpring.model.Elements</value>
             </list>
         </property>
         <property name="hibernateProperties">
@@ -49,13 +50,18 @@
     <bean id="equationService" class="ru.solomevich.learnSpring.service.EquationServiceImpl">
         <property name="equationDao" ref="equationDao"/>
     </bean>
+
     <bean id="elementsDao" class="ru.solomevich.learnSpring.dao.ElementsDaoImpl">
         <property name="sessionFactory" ref="hibernate4AnnotatedSessionFactory"/>
     </bean>
 
     <bean id="elementsService" class="ru.solomevich.learnSpring.service.ElementsServiceImpl">
-        <property name="equationDao" ref="elementsDao"/>
+        <property name="elementsDao" ref="elementsDao"/>
     </bean>
+
+
+
+
 
     <context:component-scan base-package="ru.solomevich.learnSpring"/>
 

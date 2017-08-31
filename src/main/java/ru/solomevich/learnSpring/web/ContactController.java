@@ -152,7 +152,15 @@ public class ContactController {
     @RequestMapping(value = "/calculationH")
     public String calculationReady (Map<String, Integer> map2) {
         Equation equation = equationService.listEquation().get(equationService.listEquation().size()-1);
-        map2.put("cR", 123);
+//        for (int i=1;i<equationService.listEquation().size();i++){
+//            System.out.println(equationService.listEquation().get(i).getEquation());
+//        }
+//        System.out.println(elementsService.listElements().get(0).getElement());
+//        for (int i=0;i<elementsService.listElements().size();i++){
+//            System.out.println(elementsService.listElements().get(i).getElement());
+//        }
+
+        map2.put("cR", equationService.calculation(equation, elementsService.listElements()));
 //        Set<Map.Entry<String, Integer>> set2 = map2.entrySet();
 //        System.out.println("map2");
 //        for (Map.Entry<String, Integer> me : set2) {

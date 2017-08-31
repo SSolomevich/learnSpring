@@ -1,8 +1,10 @@
 package ru.solomevich.learnSpring.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import ru.solomevich.learnSpring.dao.EquationDao;
+import ru.solomevich.learnSpring.model.Elements;
 import ru.solomevich.learnSpring.model.Equation;
 
 import javax.transaction.Transactional;
@@ -644,4 +646,48 @@ elements.remove("Q");
 
         return x;
     }
+
+//    ElementsService elementsService;
+//
+//    @Autowired(required = true)
+//    @Qualifier(value = "elementsService")
+//    public void setElementsService(ElementsService elementsService) {
+//        this.elementsService = elementsService;
+//    }
+
+    public Integer calculation(Equation equation, List <Elements> list){
+        ElementsServiceImpl elementsService = new ElementsServiceImpl();
+        int molecularWeight=0;
+       Map<String,Integer> map = helpEqualizeEquation(equation.getEquation());
+        Set<Map.Entry<String, Integer>> set = map.entrySet();
+
+
+
+//        for (Map.Entry<String, Integer> me : set) {
+//            System.out.print(me.getKey() + ": ");
+//            System.out.println(me.getValue());
+////            map2.put(me.getKey(),me.getValue());
+//        }
+//
+
+
+
+        for (int i=0;i<list.size();i++){
+            System.out.println(list.get(i).getElement());
+        }
+       for (int i=0;i<list.size();i++){
+           for (Map.Entry<String, Integer> me : set) {
+             if (me.getKey().equals(list.get(i).getElement())){
+                double  weight = list.get(i).getWeight();
+                 molecularWeight=molecularWeight+(int)weight*me.getValue();
+             }
+        }
+       }
+
+
+
+        System.out.println("molecularWeight"+molecularWeight);
+        return molecularWeight;
+    }
+
 }

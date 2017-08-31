@@ -17,7 +17,7 @@ public class ElementsServiceImpl implements ElementsService{
 
     ElementsDao elementsDao;
 
-    public void setEquationDao(ElementsDao elementsDao) {
+    public void setElementsDao(ElementsDao elementsDao) {
         this.elementsDao = elementsDao;
     }
 
@@ -38,12 +38,7 @@ public class ElementsServiceImpl implements ElementsService{
     public void deleteElement(int id) {
         this.elementsDao.deleteElemets(id);
     }
-    @Override
-    public Integer calculation(Equation equation){
-        int molecularWeight=123;
-        System.out.println("molecularWeight"+molecularWeight);
-        return molecularWeight;
-    }
+
 
 
 }

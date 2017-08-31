@@ -12,5 +12,5 @@ public interface ElementsService {
     List<Elements> listElements();
     void addElement(Elements elements);
     void deleteElement(int id);
-    Integer calculation(Equation equation);
+
 }
