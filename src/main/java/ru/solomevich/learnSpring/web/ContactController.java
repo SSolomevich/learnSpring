@@ -6,25 +6,16 @@ package ru.solomevich.learnSpring.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import ru.solomevich.learnSpring.dao.EquationDaoImpl;
 import ru.solomevich.learnSpring.model.Equation;
 import ru.solomevich.learnSpring.service.ElementsService;
 import ru.solomevich.learnSpring.service.EquationService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.beans.support.PagedListHolder;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-import javax.annotation.Resource;
-import java.util.HashMap;
+
 import java.util.Map;
-import java.util.Set;
 
 @Controller
 public class ContactController {
@@ -118,14 +109,25 @@ public class ContactController {
     @RequestMapping(value = "/tableMendeleev")
     public String tableMendeleev() {
 
-        return "tableMendeleev";
+        return "tableMendeleev/tableMendeleev";
     }
 
     @RequestMapping(value = "/elementDescription")
-    public String elementDescription(String element) {
+    public String elementDescription(Map<String, Object> map2, @ModelAttribute("atomicN") Integer atomicNumber) {
 
-        return "elementDescription";
+
+
+            map2.put("element", elementsService.listElements().get(atomicNumber-1));
+
+
+
+
+        return "tableMendeleev/elementDescription";
     }
+
+
+
+
 
 
 
@@ -140,34 +142,15 @@ public class ContactController {
     @RequestMapping(value = "/calc")
     public String calculation(@ModelAttribute("equation") Equation equation,  Map<String, Object> map, Model model) {
         equationService.addEquation(equation);
-//        Set<Map.Entry<String, Integer>> set2 = map.entrySet();
-//        System.out.println("map");
-//        for (Map.Entry<String, Integer> me : set2) {
-//            System.out.print(me.getKey() + ": ");
-//            System.out.println(me.getValue());
-//        }
+
         return "redirect:calculationH";
     }
 
     @RequestMapping(value = "/calculationH")
     public String calculationReady (Map<String, Integer> map2) {
         Equation equation = equationService.listEquation().get(equationService.listEquation().size()-1);
-//        for (int i=1;i<equationService.listEquation().size();i++){
-//            System.out.println(equationService.listEquation().get(i).getEquation());
-//        }
-//        System.out.println(elementsService.listElements().get(0).getElement());
-//        for (int i=0;i<elementsService.listElements().size();i++){
-//            System.out.println(elementsService.listElements().get(i).getElement());
-//        }
 
         map2.put("cR", equationService.calculation(equation, elementsService.listElements()));
-//        Set<Map.Entry<String, Integer>> set2 = map2.entrySet();
-//        System.out.println("map2");
-//        for (Map.Entry<String, Integer> me : set2) {
-//            System.out.print(me.getKey() + ": ");
-//            System.out.println(me.getValue());
-//            map2.put(me.getKey(),me.getValue());
-//        }
 
         return "calcMolWeight/calculationReady";
     }
