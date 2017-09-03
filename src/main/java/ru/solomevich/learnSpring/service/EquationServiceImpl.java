@@ -657,7 +657,7 @@ elements.remove("Q");
 
     public Integer calculation(Equation equation, List <Elements> list){
         ElementsServiceImpl elementsService = new ElementsServiceImpl();
-        int molecularWeight=0;
+        double molecularWeight=0;
        Map<String,Integer> map = helpEqualizeEquation(equation.getEquation());
         Set<Map.Entry<String, Integer>> set = map.entrySet();
 
@@ -679,15 +679,19 @@ elements.remove("Q");
            for (Map.Entry<String, Integer> me : set) {
              if (me.getKey().equals(list.get(i).getElement())){
                 double  weight = list.get(i).getWeight();
-                 molecularWeight=molecularWeight+(int)weight*me.getValue();
+                 molecularWeight=molecularWeight+weight*me.getValue();
              }
         }
        }
-
+        int result=0;
+        if (molecularWeight%1<0.5){
+            result = (int)molecularWeight;
+        }
+        else result = (int)molecularWeight +1;
 
 
         System.out.println("molecularWeight"+molecularWeight);
-        return molecularWeight;
+        return result;
     }
 
 }
