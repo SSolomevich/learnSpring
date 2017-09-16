@@ -49,7 +49,7 @@ public class EquationServiceImpl implements EquationService {
 
     @Override
     public Equation equalizeEquation (Equation equation) {
-        List<String> list = new LinkedList<String>();
+
         String s = "";
 // Получаем массив из уравнения: нулевой элемент - первая часть уравнения, первый - вторая часть
         String[] world = equation.getEquation().split("=");
