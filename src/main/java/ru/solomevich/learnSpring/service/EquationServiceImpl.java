@@ -656,7 +656,7 @@ elements.remove("Q");
 //    }
 
     public Integer calculation(Equation equation, List <Elements> list){
-        ElementsServiceImpl elementsService = new ElementsServiceImpl();
+
         double molecularWeight=0;
        Map<String,Integer> map = helpEqualizeEquation(equation.getEquation());
         Set<Map.Entry<String, Integer>> set = map.entrySet();
